@@ -3,36 +3,68 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Cunde.GitHub.io by cunde</title>
+    <title>伟大的FE</title>
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <!-- <link rel="stylesheet" href="stylesheets/styles.css"> -->
+    <!-- <link rel="stylesheet" href="stylesheets/github-light.css"> -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/home/index.css">
     <meta name="viewport" content="width=device-width">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body>
-    <div class="wrapper">
-      <header>
-        <h1>Cunde.GitHub.io</h1>
-        <p></p>
+  <body class="home-page">
+      <header class="main-header" style="background-image: url(images/banner.jpg)">
+         <div class="container">
+             <div class="row">
+                 <div class="col-sm-12">
+                     <h1><span>react - </span>为 WEB 攻城狮创造的 JS 框架。</h1>
+                     <img src="http://image.golaravel.com/e/b0/4e4bd788405aab87f03d26edc4ab4.png" alt="Laravel" class="hide">
+                 </div>
 
-
-        <p class="view"><a href="https://github.com/cunde">View My GitHub Profile</a></p>
-
+                 <div class="col-sm-12">
+                     <a href="http://www.reactjs-china.com/" class="btn btn-success btn-doc" target="_blank">react中文文档</a>
+                 </div>
+             </div>
+         </div>
       </header>
-      <section>
-        <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
-
-<p>(<a href="http://google.com">http://google.com</a>)</p>
-      </section>
-      <footer>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
-    </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+      <nav class="main-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="navbar-header">
+                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
+                            <span class="sr-only">Toggle navigation</span>
+                            <i class="fa fa-bars"></i>
+                        </span>
+                    </div>
+                    <div class="collapse navbar-collapse" id="main-menu">
+                        <ul class="menu">
+                            <li class="nav-current" role="presentation"><a href="https://www.yunzhanghu.com/">首页</a></li>
+                            <li role="presentation"><a href="https://www.jiandanlicai.com/" title="Lumen中文文档" target="_blank">云账户</a></li>
+                            <li role="presentation"> <a href="#" title="Laravel问答社区" target="_blank">dengdeng</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content">
+                    <article>
+                        start
+                    </article>
+                </main>
+                <aside class="col-md-4 sidebar">
+                    intro
+                </aside>
+            </div>
+        </div>
+    </section>
+    <footer>
+    </footer>
   </body>
 </html>
