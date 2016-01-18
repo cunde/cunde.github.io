@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>react-learning-props</title>
+        <script type="text/javascript" src="../bower_components/react/react.min.js"></script>
+        <script type="text/javascript" src="../bower_components/react/react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    </head>
+    <body>
+        <div id="container"></div>
+        <div id="container2"></div>
+
+        <script type="text/babel">
+            // props 添加时间处理机制
+            var SaveButton = React.createClass({
+                render: function() {
+                    return (<a class="button save" onClick={this._handleClick}>Save</a>)
+                },
+                _handleClick: function () {
+                    console.log(this);
+                }
+            })
+            ReactDOM.render(<SaveButton name='myself'/>, document.body);
+        </script>
+
+    </body>
+</html>

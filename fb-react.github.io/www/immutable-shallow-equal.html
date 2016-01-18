@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="React & Immutable js">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.7.3/immutable.min.js"></script>
+<!-- <script src="//cdn.bootcss.com/react/0.13.3/react-with-addons.min.js"></script> -->
+<script type="text/javascript" src="../bower_components/react/react.min.js"></script>
+<script type="text/javascript" src="../bower_components/react/react-dom.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+  <meta charset="utf-8">
+  <title>React and Immutable js</title>
+</head>
+<body>
+<script type="text/babel">
+    function shallowEqual(objA, objB) {
+      if (objA === objB) {
+        return true;
+      }
+
+      if (typeof objA !== 'object' || objA === null ||
+          typeof objB !== 'object' || objB === null) {
+          return false;
+      }
+
+      var keysA = Object.keys(objA);
+      var keysB = Object.keys(objB);
+
+      if (keysA.length !== keysB.length) {
+        return false;
+      }
+
+      // Test for A's keys different from B.
+      var bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
+      for (var i = 0; i < keysA.length; i++) {
+        if (!bHasOwnProperty(keysA[i]) || objA[keysA[i]] !== objB[keysA[i]]) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    var time = 0;
+    var Component = React.createClass({
+
+        getInitialState() {
+            return {
+                count: 0,
+                user:{
+                    school: {
+                        high: 'higSchoolName',
+                        middle: 'middleSchoolName'
+                    }
+                }
+            }
+        },
+
+        handleChangeSchool(e) {
+            var test = e.target.value;
+            this.setState({
+                user: {
+                    school: {
+                        high: test
+                    }
+                }
+            });
+        },
+
+        handleCountClick() {
+            this.setState((data)=>({
+                count: data.count+1
+            }));
+        },
+
+
+        handleCountClickSameValue() {
+            this.setState((data) => ({
+                count: data.count
+            }));
+        },
+
+        handleChangeSchoolSameValue() {
+            this.setState((data) => ({
+                user: {
+                    school: {
+                        high: data.user.school.high,
+                        middle: 'middleSchoolName2'
+                    }
+                }
+            }));
+        },
+
+        render() {
+            var data = this.state;
+            time++;
+
+            console.log(data);
+
+            return (
+                <div>
+                    <h2>
+                        Render Times: {time}
+                    </h2>
+                    <p>
+                        High school name: <input type="text" onChange={this.handleChangeSchool} />
+                    </p>
+                    <p>
+                        High school: {data.user.school.high}<br/>
+                        Middle school: {data.user.school.middle}
+                    </p>
+                    <button onClick={this.handleCountClick}>Add to count</button>
+                    <p>
+                        <button onClick={this.handleCountClickSameValue}>SetToSameCount</button>
+                        <button onClick={this.handleChangeSchoolSameValue}>SetToSameSchool</button>
+                    </p>
+                    <p>
+                        Count: {data.count}
+                    </p>
+                </div>
+            );
+        },
+
+        shouldComponentUpdate(nextProps, nextState){
+            return (
+            !shallowEqual(this.props, nextProps) ||
+            !shallowEqual(this.state, nextState)
+            );
+        }
+
+    });
+
+React.render(<Component />, document.body);
+</script>
+</body>
+</html>

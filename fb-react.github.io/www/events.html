@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>react-learn-event</title>
+        <script type="text/javascript" src="../bower_components/react/react.min.js"></script>
+        <script type="text/javascript" src="../bower_components/react/react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    </head>
+    <body>
+
+        <script type="text/bable">
+            var SurveyEditor = React.createClass({
+                render: function () {
+                    var questions = this.state.questions;
+
+                    var dropZoneEntered = '';
+                    if (this.state.dropZoneEntered) {
+                        dropZoneEntered = 'drag-enter';
+                    }
+                    return (
+                        <div className="survey-editor">
+                            <div className="row">
+                                <aside className="sidebar col-md-3">
+                                    <h2>Modules</h2>
+                                    <DraggableQuestions />
+                                </aside>
+
+                                <div className="survey-cancas col-md-9">
+
+                                    <SurveyForm
+                                        title={this.state.title}
+                                        introduction={this.state.introduction}
+                                        onChange={this.handleFormChange}
+                                        />
+
+                                    <Divider>Questions</Divider>
+
+                                    <ReactCSSTransitionGroup transitionName='question'>
+                                        {questions}
+                                    </ReactCSSTransitionGroup>
+
+                                    <div className={'drop-zone well well-drop-zone' + dropZoneEntered}
+
+                                    onDragOver={this.handleDragOver}
+
+                                    onDragEnter={this.handleDragEnter}
+
+                                    onDragLeave={this.handleDragLeave}
+
+                                    onDrop={this.handleDrop}>
+
+                                        Drag and Drop a module form the left
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                },
+                getInitialState: function () {
+                    return {
+                        dropZoneEntered: false,
+                        title: 'Fantastic Survey',
+                        introductions: 'This survey is Fantastic!',
+                        questions: []
+                    };
+                },
+                handleFormChange: function (formData) {
+                    this.setState(formData);
+                },
+                handleDragOver: function (ev) {
+                    // 这保证 handleDropZoneDrop 可以被调用
+                    // https://code.google.com/p/chromium/issues/detail?id=168387
+                    ev.preventDefault();
+                },
+                handleDragEnter: function (ev) {
+                    this.setState({dropZoneEntered: true});
+                },
+                handleDragLeave; function (ev) {
+                    this.setState({dropZoneEntered: false});
+                },
+                handleDrop: function (ev) {
+                    var questionType = ev.dataTransfer.getData('questionType');
+                    var questions = this.state.questions;
+                    questions = questions.concat({type: questionType});
+                    this.setState({
+                        questions: questions,
+                        dropZoneEntered: false
+                    });
+                }
+            })
+        </script>
+    </body>
+</html>

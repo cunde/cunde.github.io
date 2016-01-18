@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>state</title>
+        <script type="text/javascript" src="../bower_components/react/react.min.js"></script>
+        <script type="text/javascript" src="../bower_components/react/react-dom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    </head>
+    <body>
+        <script type="text/babel">
+        /**
+         * @todo 每一个React组件都可以拥有自己的state，
+         * state与props的区别在于前者存在于组件的内部。
+         */
+            var CountryDropdown = React.createClass({
+                getInitialState: function () {
+                    return {
+                        showOptions: false
+                    };
+                },
+                render: function() {
+                    var options;
+
+                    if (this.state.showOptions) {
+                        options = (
+                            <ul className='options'>
+                                <li>United states of America</li>
+                                <li>New Zealand</li>
+                                <li>Denmark</li>
+                            </ul>
+                        );
+                    }
+                    return (
+                        <div className='dropdown' onClick={this.handleClick}>
+                            <label>Choose a country</label>.{options}
+                        </div>
+                    )
+                },
+                handleClick: function (){
+                    this.setState({
+                        showOptions:true
+                    });
+                }
+            });
+            ReactDOM.render(<CountryDropdown /> , document.body)
+            /**
+             * @desc 在上例中，state被用来记录是否再下来框中显示可选项
+             * state可以通过setState来修改，也可以使用getInitialState来提供一组默认值。
+             * 只要setState被调用，render就会被调用，
+             * 如果render函数的返回值有变化，虚拟DOM就会更新，真实的DOM也会被更新，
+             * 千万不能直接修改this.state 记住永远要用setState来修改
+             */
+        </script>
+    </body>
+</html>
