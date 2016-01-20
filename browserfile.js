@@ -1,6 +1,3 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var markdown = require('gulp-markdown');
 var fs = require('fs');
 var browserify = require('browserify');
 var watchify = require('watchify');
@@ -9,43 +6,6 @@ var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var sourcemaps = require('gulp-sourcemaps');
-var paths = {
-  scripts: 'input/**/*.js',
-  images: 'client/img/**/*',
-  sass: './sass/**/*.scss',
-  markdownd: './article/*.md'
-};
-
-
-gulp.task('markdownd', function () {
-	 gulp.src('./article/**/*.md')
-		.pipe(markdown())
-		.pipe(gulp.dest('./article/blog/'));
-});
-gulp.task('sass', function () {
-  gulp.src('./sass/**/*.scss')
-    .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('./sass/dist/css'));
-});
-    // md2html /article/tdoc.md > /path/to/doc.html
-gulp.task('watch', function () {
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.markdownd, ['markdownd']);
-  gulp.watch('js', bundle);
-});
-
-// gulp.task('scripts', function() {
-//   // Minify and copy all JavaScript (except vendor scripts)
-//   // with sourcemaps all the way down
-//   gulp.src(paths.scripts)
-//     .pipe(sourcemaps.init())
-//       .pipe(uglify())
-//     //   .pipe(concat('all.min.js'))
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest('build/js'));
-// });
-
-
 var gulp = require('gulp');
 var customOpts = {
   entries: ['input/test.js'],
@@ -57,7 +17,7 @@ var b = watchify(browserify(opts));
 // add transformations here
 // i.e. b.transform(coffeeify);
 
- // so you can run `gulp js` to build the file
+gulp.task('js', bundle); // so you can run `gulp js` to build the file
 b.on('update', bundle); // on any dep update, runs the bundler
 b.on('log', gutil.log); // output build logs to terminal
 bundle();
@@ -75,6 +35,3 @@ function bundle() {
     .pipe(sourcemaps.write('./')) // writes .map file
     .pipe(gulp.dest('./dist'));
 }
-
-
-// gulp.task('default', ['watch', 'scripts', 'sass','markdownd']);
