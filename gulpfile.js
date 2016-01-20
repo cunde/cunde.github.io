@@ -1,8 +1,16 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var markdown = require('gulp-markdown');
+var fs = require('fs');
+var browserify = require('browserify');
+var watchify = require('watchify');
+var assign = require('lodash.assign');
+var gutil = require('gulp-util');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var sourcemaps = require('gulp-sourcemaps');
 var paths = {
-  scripts: ['client/js/**/*.coffee', '!client/external/**/*.coffee'],
+  scripts: 'input/**/*.js',
   images: 'client/img/**/*',
   sass: './sass/**/*.scss',
   markdownd: './article/*.md'
@@ -23,37 +31,50 @@ gulp.task('sass', function () {
 gulp.task('watch', function () {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.markdownd, ['markdownd']);
+  gulp.watch('js', bundle);
 });
 
-
-//
-// // Not all tasks need to use streams
-// // A gulpfile is just another node program and you can use all packages available on npm
-// gulp.task('clean', function(cb) {
-//   // You can use multiple globbing patterns as you would with `gulp.src`
-//   del(['build'], cb);
-// });
-//
-// gulp.task('scripts', ['clean'], function() {
+// gulp.task('scripts', function() {
 //   // Minify and copy all JavaScript (except vendor scripts)
 //   // with sourcemaps all the way down
-//   return gulp.src(paths.scripts)
+//   gulp.src(paths.scripts)
 //     .pipe(sourcemaps.init())
-//       .pipe(coffee())
 //       .pipe(uglify())
-//       .pipe(concat('all.min.js'))
+//     //   .pipe(concat('all.min.js'))
 //     .pipe(sourcemaps.write())
 //     .pipe(gulp.dest('build/js'));
 // });
-//
-// // Copy all static images
-// gulp.task('images', ['clean'], function() {
-//   return gulp.src(paths.images)
-//     // Pass in options to the task
-//     .pipe(imagemin({optimizationLevel: 5}))
-//     .pipe(gulp.dest('build/img'));
-// });
-//
-//
-// // The default task (called when you run `gulp` from cli)
+
+
+var gulp = require('gulp');
+var customOpts = {
+  entries: ['input/test.js'],
+  debug: true
+};
+var opts = assign({}, watchify.args, customOpts);
+var b = watchify(browserify(opts));
+
+// add transformations here
+// i.e. b.transform(coffeeify);
+
+ // so you can run `gulp js` to build the file
+b.on('update', bundle); // on any dep update, runs the bundler
+b.on('log', gutil.log); // output build logs to terminal
+bundle();
+function bundle() {
+    console.log(b._options.entries);
+  b.bundle()
+    // log errors if they happen
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('bundle.js'))
+    // optional, remove if you don't need to buffer file contents
+    .pipe(buffer())
+    // optional, remove if you dont want sourcemaps
+    .pipe(sourcemaps.init({loadMaps: true})) // loads map from browserify file
+       // Add transformation tasks to the pipeline here.
+    .pipe(sourcemaps.write('./')) // writes .map file
+    .pipe(gulp.dest('./dist'));
+}
+
+
 // gulp.task('default', ['watch', 'scripts', 'sass','markdownd']);
