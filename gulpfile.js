@@ -13,11 +13,17 @@ var paths = {
   scripts: 'input/**/*.js',
   images: 'client/img/**/*',
   sass: './sass/**/*.scss',
-  markdownd: './article/*.md'
+  mdarticle: './article/*.md',
+  mdangular: './angular/*.md'
 };
 
 
-gulp.task('markdownd', function () {
+gulp.task('mdangular', function () {
+	 gulp.src('./angular/md/*.md')
+		.pipe(markdown())
+		.pipe(gulp.dest('./angular/note/'));
+});
+gulp.task('mdarticle', function () {
 	 gulp.src('./article/**/*.md')
 		.pipe(markdown())
 		.pipe(gulp.dest('./article/blog/'));
@@ -30,10 +36,11 @@ gulp.task('sass', function () {
     // md2html /article/tdoc.md > /path/to/doc.html
 gulp.task('watch', function () {
   gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.markdownd, ['markdownd']);
+  gulp.watch(paths.mdarticle, ['mdarticle']);
+  gulp.watch(paths.mdangular, ['mdangular']);
   gulp.watch('js', bundle);
 });
-
+gulp.task('default',['watch','mdarticle','mdangular']);
 // gulp.task('scripts', function() {
 //   // Minify and copy all JavaScript (except vendor scripts)
 //   // with sourcemaps all the way down
