@@ -3,63 +3,79 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width">
     <title>伟大的FE</title>
 
     <!-- <link rel="stylesheet" href="stylesheets/styles.css"> -->
     <!-- <link rel="stylesheet" href="stylesheets/github-light.css"> -->
     <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/home/index.css">
-    <meta name="viewport" content="width=device-width">
+
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
-  <body class="home-page">
-      <header class="main-header" style="background-image: url(images/banner.jpg)">
-         <div class="container">
-             <div class="row">
-                 <div class="col-sm-12">
-                     <h1><span>react - </span>为 WEB 攻城狮创造的 JS 框架。</h1>
-                     <img src="http://image.golaravel.com/e/b0/4e4bd788405aab87f03d26edc4ab4.png" alt="Laravel" class="hide">
-                 </div>
-
-                 <div class="col-sm-12">
-                     <a href="http://www.reactjs-china.com/" class="btn btn-success btn-doc" target="_blank">react中文文档</a>
-                 </div>
-             </div>
-         </div>
-      </header>
-      <nav class="main-navigation">
+  <body class="home-page" style="background-image: url(images/bg.jpg)">
+      <header class="navbar navbar-static-top bs-docs-nav" id="top" role="banner">
+          <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div class="navbar-header">
-                        <span class="nav-toggle-button collapsed" data-toggle="collapse" data-target="#main-menu">
-                            <span class="sr-only">Toggle navigation</span>
-                            <i class="fa fa-bars"></i>
-                        </span>
-                    </div>
-                    <div class="collapse navbar-collapse" id="main-menu">
-                        <ul class="menu">
-                            <li class="nav-current" role="presentation"><a href="https://www.yunzhanghu.com/">首页</a></li>
-                            <li role="presentation"><a href="https://www.jiandanlicai.com/" title="Lumen中文文档" target="_blank">云账户</a></li>
-                            <li role="presentation"> <a href="#" title="Laravel问答社区" target="_blank">dengdeng</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+          <div class="navbar-header">
+            <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand hidden-sm" href="/" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'navbar-首页'])">首页</a>
+          </div>
+          <div class="navbar-collapse collapse" role="navigation">
+            <ul class="nav navbar-nav">
+              <li class="hidden-sm hidden-md">
+                  <a href="/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v2doc'])">
+                      blog
+                  </a>
+              </li>
+              <li>
+                  <a href="/blog" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v3doc'])">学习REACT</a></li>
+              <li>
+                  <a href="/angular.html" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'v4doc'])">学习Angular</a>
+              </li>
+              <li><a href="/p/lesscss/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'less'])">fis</a></li>
+              <li><a href="http://www.jquery123.com/" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'jquery'])">immutable</a></li>
+              <li><a href="http://expo.bootcss.com" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'expo'])">练习</a></li>
+              <!-- <li><i class="fa fa-fire job-hot"></i><a href="http://www.liepin.com/event/bootstrap/index.shtml?mscid=b_o_0001" target="_blank" onclick="_hmt.push(['_trackEvent', 'navbar', 'click', 'navbar-高薪工作'])">高薪工作</a></li> -->
+            </ul>
+          </div>
         </div>
-    </nav>
+      </div>
+  </header>
     <section class="content-wrap">
         <div class="container">
             <div class="row">
-                <main class="col-md-8 main-content">
+                <main class="col-md-3 main-content">
                     <article>
-                        start
+                        <ul class="nav nav-pills nav-stacked">
+                          <li role="presentation" class="active"><a href="#">Home</a></li>
+                          <li role="presentation"><a href="#">bolg</a></li>
+                          <li role="presentation"><a href="#">note</a></li>
+                          <li role="presentation"><a href="/angular.html">Angular</a></li>
+                        </ul>
                     </article>
                 </main>
-                <aside class="col-md-4 sidebar">
-                    intro
+                <aside class="col-md-9 sidebar">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                             <h3 class="panel-title">我是一个粗人</h3>
+                        </div>
+                        <div class="panel-body">
+                            前端，对我来说有熟悉又陌生，从我离开大学的校门的那一刻起，我的人生就满是前端。
+                            大学退学后。一度认为生活就是工作！那么想生活就要找工作！做什么呢？这是我首要的事情
+                            但是还没有想明白要做什么的时候！就被我的一哥们叫来！做神马前端，那是哥们压根什么叫浏览器都不知道
+                            打字还是在那一指禅。什么鸟语！什么代码 什么“伊芙艾娥斯”，神马二进制，八进制，十六进制，for循，forin便利，
+                            都是什么鬼啊！更笨停不下来，没有再笨的了。这些东西裤裤的陪伴我好久啊！
+
+                        </div>
+                    </div>
                 </aside>
             </div>
         </div>
