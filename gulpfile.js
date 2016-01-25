@@ -14,7 +14,7 @@ var paths = {
   images: 'client/img/**/*',
   sass: './sass/**/*.scss',
   mdarticle: './article/*.md',
-  mdangular: './angular/*.md'
+  mdangular: './angular/md/*.md'
 };
 
 
