@@ -8,4 +8,4 @@
  ### Angular List
 ___________________________
 
-  Angular 条件语句 [if  switch](/article/note/case.html "if switch") inline link.
+  Angular 条件语句 [if  switch](/angular/note/case.html "if switch") inline link.
