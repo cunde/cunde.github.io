@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>scroll Loading</title>
+        <meta charset="utf-8">
+        <meta name="keywords" content="angualr,angular scroll,angular 滚屏加载, angular loading" />
+        <meta name="description" content="html" />
+        <meta name="viewport" content="width=device-width">
+    </head>
+    <body style="width:1000px;margin: 0 auto;">
+<xmp theme="united" style="display:none;">
+#### 滚屏加载
+
+另外一种可行的性能解决方案就是滚屏加载，
+又称”Endless Scrolling,“ “unpagination”，
+这是用于大量数据集显示的时候，又不想表格分页，
+所以一般放在页面最底部，当滚动屏幕到达页面底部的时候，就会尝试加载一个序列的数据集，追加在页面底部。在Angular社区有开源组件ngInfiniteScroll [http://binarymuse.github.io/ngInfiniteScroll/index.html](http://binarymuse.github.io/ngInfiniteScroll/index.html)实现滚屏加载。下面是官方Demo：
+
+HTML：
+```HTML
+<div ng-app='myApp' ng-controller='DemoController'>
+  <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='1'>
+    <div ng-repeat='item in reddit.items'>
+      <span class='score'>{{item.score}}</span>
+      <span class='title'>
+        <a ng-href='{{item.url}}' target='_blank'>{{item.title}}</a>
+      </span>
+      <small>by {{item.author}} -
+        <a ng-href='http://reddit.com{{item.permalink}}' target='_blank'>{{item.num_comments}} comments</a>
+      </small>
+      <div style='clear: both;'></div>
+    </div>
+    <div ng-show='reddit.busy'>Loading data...</div>
+  </div>
+</div>
+```
+JavaScript:
+```JavaScript
+var myApp = angular.module('myApp', ['infinite-scroll']);
+myApp.controller('DemoController', ['$scope', 'Reddit', function($scope, Reddit) {
+  $scope.reddit = new Reddit();
+}]);
+// Reddit constructor function to encapsulate HTTP and pagination logic
+myApp.factory('Reddit', ['$http', function($http) {
+  var Reddit = function() {
+    this.items = [];
+    this.busy = false;
+    this.after = '';
+  };
+  Reddit.prototype.nextPage = function() {
+    if (this.busy) return;
+    this.busy = true;
+    var url = 'http://api.reddit.com/hot?after=' + this.after + '&jsonp=JSON_CALLBACK';
+    $http.jsonp(url).success(function(data) {
+      var items = data.data.children;
+      for (var i = 0; i < items.length; i++) {
+        this.items.push(items[i].data);
+      }
+      this.after = 't3_' + this.items[this.items.length - 1].id;
+      this.busy = false;
+    }.bind(this));
+  };
+  return Reddit;
+}]);
+```
+*可以在这里[http://binarymuse.github.io/ngInfiniteScroll/demo_async.html](http://binarymuse.github.io/ngInfiniteScroll/demo_async.html)
+访问这个例子。其使用很简单，有兴趣的读者可以查看其官方文档。*
+
+#### 其它
+
+当然对于性能解决方案还有很多，如客户端分页、服务端分页、将其它更高效的jQuery插件或者React插件合理的封装为ng组件等。当封装第三方非Angular组件时需要注意scope和model的同步，以及合理的触发$apply更新View。另外在开源社区中也有ngReact可以简化将React组件应用到Angular应用中，在这里可以了解到关于它的更多信息：https://github.com/davidchang/ngReact。
+
+此刻，我猜你一定正是心中默默嘀咕着：Angular“脏检查机制”一定很慢，一个“肮脏”的家伙。但这是错误的。它其实很快，Angular团队为此专门做了很多优化。相反，在大多数场景下，Angular这种特殊的watcher机制，反而比很多基于JavaScript模板引擎（underscore、Handlebars等）更快。因为Angular并不需要通过大范围的DOM操作来更新View，它的每次更新区域更小，DOM操作更少。而DOM操作的代价远远高过JavaScript运算，在有些浏览器中，修改DOM的速度甚至会比纯粹的JavaScript运算慢很多倍！
+
+而且，在现实场景中，我们的大多数页面都不会超出2000个watcher，因为过多的信息对使用者是非常不友好的，好的设计师都懂得限制单页信息的展示量。但是如果超过了2000个watcher，那么你就得仔细思考如何去优化它了，应该优先选择从用户体验方面改进，实在不行就用上面提到的技巧来优化你的应用程序。
+
+最后，随着Angular 2.0框架对“脏检查机制”的改进，运行性能将会得到显著地提高，特别是针对Mobile开发的ionic这类框架，将直接受益。
+</xmp>
+<script src="./../../components/strapdown/strapdown.js"></script>
+    </body>
+</html>

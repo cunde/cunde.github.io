@@ -8,4 +8,7 @@
  ### Angular List
 ___________________________
 
-  Angular 条件语句 [if  switch](/angular/note/case.html "if switch") inline link.
+  * Angular 条件语句 [if  switch](/angular/note/case.html "if switch") inline link.
+  * Angular 解析过程 [angularjs 执行的全过程](/angular/note/parse-process.html "if switch") inline link.
+  * Angular $watch的性能优化 [angularjs 执行的全过程](/angular/note/watch.html "if switch") inline link.
+  * Angular $滚屏加载的性能优化 [angularjs 执行的全过程](/angular/note/scroll-loading.html "if switch") inline link.
